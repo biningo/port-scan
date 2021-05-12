@@ -22,7 +22,7 @@ func worker(ports <-chan int, result chan<- int) {
 	defer wg.Done()
 	for port := range ports {
 		address := fmt.Sprintf("%s:%d", IP, port)
-		if _, err := net.DialTimeout("tcp", address, time.Second*time.Duration(timeout)); err == nil {
+		if _, err := net.DialTimeout("tcp", address, time.Millisecond*time.Duration(timeout)); err == nil {
 			result <- port
 		} else {
 			result <- -1
@@ -36,7 +36,7 @@ func main() {
 	flag.IntVar(&start, "start", 0, "start")
 	flag.IntVar(&end, "end", 65535, "end")
 	flag.StringVar(&IP, "ip", "localhost", "IP")
-	flag.IntVar(&timeout, "timeout", 3, "timeout(second)")
+	flag.IntVar(&timeout, "timeout", 3, "timeout(ms)")
 	flag.Parse()
 
 	if start < 0 || start > 65535 || end < 0 || end > 65535 {
