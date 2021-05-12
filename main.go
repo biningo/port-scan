@@ -11,7 +11,7 @@ import (
 )
 
 const (
-	MAX_WORKER = 100
+	MaxWorker = 100
 )
 
 var IP = "localhost"
@@ -42,9 +42,9 @@ func main() {
 	if start < 0 || start > 65535 || end < 0 || end > 65535 {
 		panic(errors.New("port range error"))
 	}
-	ports := make(chan int, MAX_WORKER)
+	ports := make(chan int, MaxWorker)
 	result := make(chan int)
-	for i := 0; i < MAX_WORKER; i++ {
+	for i := 0; i < MaxWorker; i++ {
 		wg.Add(1)
 		go worker(ports, result)
 	}
