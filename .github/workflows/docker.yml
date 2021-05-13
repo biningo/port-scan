@@ -1,0 +1,24 @@
+name: docker
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  docker-build:
+    name: docker-build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@v2.3.4
+
+      - name: Build and push Docker images
+        uses: docker/build-push-action@v2
+        with:
+          username: biningo
+          password: ${{ secrets.DOCKER_IMAGE }}
+          registry: docker.pkg.github.com
+          repository: biningo/port-scan/pscan
