@@ -35,7 +35,7 @@ func main() {
 	flag.IntVar(&start, "start", 0, "start")
 	flag.IntVar(&end, "end", 65535, "end")
 	flag.StringVar(&IP, "ip", "localhost", "IP")
-	flag.IntVar(&TimeOut, "timeout", 3, "timeout(ms)")
+	flag.IntVar(&TimeOut, "timeout", 100, "timeout(ms)")
 	flag.IntVar(&MaxWorker, "worker", 100, "workers")
 	flag.Parse()
 
