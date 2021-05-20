@@ -11,7 +11,7 @@ import (
 )
 
 var (
-	IP        = "localhost"
+	Host        = "localhost"
 	wg        sync.WaitGroup
 	TimeOut   = 0
 	MaxWorker = 100
@@ -20,7 +20,7 @@ var (
 func worker(ports <-chan int, result chan<- int) {
 	defer wg.Done()
 	for port := range ports {
-		address := fmt.Sprintf("%s:%d", IP, port)
+		address := fmt.Sprintf("%s:%d", Host, port)
 		if _, err := net.DialTimeout("tcp", address, time.Millisecond*time.Duration(TimeOut)); err == nil {
 			result <- port
 		} else {
@@ -34,7 +34,7 @@ func main() {
 	end := 65535
 	flag.IntVar(&start, "start", 0, "start")
 	flag.IntVar(&end, "end", 65535, "end")
-	flag.StringVar(&IP, "ip", "localhost", "IP")
+	flag.StringVar(&Host, "host", "localhost", "host")
 	flag.IntVar(&TimeOut, "timeout", 100, "timeout(ms)")
 	flag.IntVar(&MaxWorker, "worker", 100, "workers")
 	flag.Parse()
